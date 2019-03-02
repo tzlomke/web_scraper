@@ -20,6 +20,50 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+// Handlebars
+app.engine(
+	"handlebars",
+	exphbs({
+		defaultLayout: "main"
+	})
+);
+app.set("view engine", "handlebars");
+
+// Routes
+app.get("/scrape", (req, res) => {
+	axios.get("").then(response => {
+		const $ = cheerio.load(response.data);
+
+
+	});
+})
+
+// Get All Articles
+app.get("/articles/", (req, res) => {
+	db.Article.find({})
+		.then(dbArticle => res.json(dbArticle))
+		.catch(err => res.json(err));
+});
+
+// Get Article by ID
+app.get("/articles/:id", (req, res) => {
+	db.Article.findOne({ _id: req.params.id })
+		.populate("comments")
+		.then(dbArticle => res.json(dbArticle))
+		.catch(err => res.json(err));
+});
+
+// Post Comments to Article
+app.post("/articles/:id", (req, res) => {
+	db.Comment.create(req.body)
+		.then(dbNote => {
+			return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
+		})
+		.then(dbArticle => res.json(dbArticle))
+		.catcfh(err => res.json(err));
+});
+
+// Database Connection
 mongoose.connect("mongodb://localhost/web_scraper", { useNewUrlParser: true});
 
 // Routes
