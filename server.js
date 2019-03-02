@@ -35,11 +35,13 @@ app.get("/scrape", (req, res) => {
 		const $ = cheerio.load(response.data);
 
 		// <Insert Site-Specific Scraping Program Here>
-	});
 
-	db.Article.create(result)
+		db.Article.create(result)
 		.then(dbArticle => console.log(dbArticle))
 		.catch(err => console.log(err));
+	});
+
+	res.send("Scrape complete");
 });
 
 // Get All Articles
