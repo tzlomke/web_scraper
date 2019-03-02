@@ -34,9 +34,13 @@ app.get("/scrape", (req, res) => {
 	axios.get("").then(response => {
 		const $ = cheerio.load(response.data);
 
-
+		// <Insert Site-Specific Scraping Program Here>
 	});
-})
+
+	db.Article.create(result)
+		.then(dbArticle => console.log(dbArticle))
+		.catch(err => console.log(err));
+});
 
 // Get All Articles
 app.get("/articles/", (req, res) => {
