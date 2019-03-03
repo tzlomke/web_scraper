@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const exphbs = require("express-handlebars");
 
 // Scraping Tools
 const axios = require("axios");
@@ -21,13 +22,13 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Handlebars
-// app.engine(
-// 	"handlebars",
-// 	exphbs({
-// 		defaultLayout: "main"
-// 	})
-// );
-// app.set("view engine", "handlebars");
+app.engine(
+	"handlebars",
+	exphbs({
+		defaultLayout: "main"
+	})
+);
+app.set("view engine", "handlebars");
 
 // Database Connection
 mongoose.connect("mongodb://localhost/web_scraper", { useNewUrlParser: true});
