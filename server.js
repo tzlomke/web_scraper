@@ -89,13 +89,13 @@ app.post("/articles/:id", (req, res) => {
 	console.log(req.body);
 
 	db.Comment.create(req.body)
-		.then(dbComment => {
+		.then(function(dbComment) {
 			return db.Article.findOneAndUpdate({}, { $push: { comments: dbComment._id } }, { new: true});
 		})
-		.then(dbArticle => {
+		.then(function(dbArticle) {
 			res.json(dbArticle);
 		})
-		.catch(err => {
+		.catch(function(err) {
 			res.json(err)
 		});
 });
@@ -112,7 +112,7 @@ app.put("/articles/:id", (req, res) => {
 				comments: req.body.commentId
 			}
 		},
-		(error, edited) => {
+		function(error, edited) {
 			if (error) {
 				console.log(error);
 				res.send(error);
@@ -125,7 +125,7 @@ app.put("/articles/:id", (req, res) => {
 });
 
 // Index Page
-app.get("/", (req, res) => {
+app.get("/", function(req, res) {
 	db.Article.find({})
 		.limit(40)
 		.populate("comments")
