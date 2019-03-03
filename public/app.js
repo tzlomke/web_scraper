@@ -1,3 +1,15 @@
+// Scrape New Articles
+$(document).on("click", "#scrape", function(event) {
+	event.preventDefault();
+
+	$.ajax({
+		method: "GET",
+		url: "/scrape"
+	}).then(() => {
+		window.location.href = "/"
+	});
+});
+
 // View Comments
 $(document).on("click", ".view-comments", function(event) {
 	event.preventDefault();
