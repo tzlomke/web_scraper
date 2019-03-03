@@ -45,10 +45,12 @@ app.get("/scrape", (req, res) => {
 			let title = $(element).find("h2").text();
 			let link = $(element).find("a").attr("href");
 			let summary = $(element).find("p").text();
+			let image = $(element).find("img").attr("src");
 
 			result.title = title;
 			result.link = link;
 			result.summary = summary;
+			result.image = image;
 
 			db.Article.create(result)
 				.then(dbArticle => console.log(dbArticle))
@@ -88,7 +90,7 @@ app.post("/articles/:id", (req, res) => {
 
 // Index Page
 app.get("/", function(req, res) {
-	db.Article.find({}).limit(10)
+	db.Article.find({}).limit(15)
 		.populate("comments")
 		.then(dbArticle => {
 			let articles = dbArticle;
