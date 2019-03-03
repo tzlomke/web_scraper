@@ -15,7 +15,7 @@ $(document).on("click", ".view-comments", function(event) {
 				$(".commenter-name").append(data.comments[i].name);
 				$(".comment-date").append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
 				$(".comment-body").append(data.comments[i].body);
-				$(".comment-modal-content").append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-note'>Delete Note</button>");
+				$(".comment-modal-content").append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-note btn btn-warning'>Delete Comment</button>");
 			}
 		});
 

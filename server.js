@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Custom CSS and JS Served to Handlebars
-var path = require("path");
+const path = require("path");
 app.use(express.static(path.join(__dirname, "/public")));
 
 // Middleware
@@ -39,6 +39,8 @@ app.set("view engine", "handlebars");
 mongoose.connect("mongodb://localhost/web_scraper", { useNewUrlParser: true});
 
 // Routes
+
+// Scrape NYT Articles
 app.get("/scrape", (req, res) => {
 	axios.get("https://www.nytimes.com/").then(response => {
 		const $ = cheerio.load(response.data);
@@ -87,13 +89,13 @@ app.post("/articles/:id", (req, res) => {
 	console.log(req.body);
 
 	db.Comment.create(req.body)
-		.then(function(dbComment) {
+		.then(dbComment => {
 			return db.Article.findOneAndUpdate({}, { $push: { comments: dbComment._id } }, { new: true});
 		})
-		.then(function(dbArticle) {
+		.then(dbArticle => {
 			res.json(dbArticle);
 		})
-		.catch(function(err) {
+		.catch(err => {
 			res.json(err)
 		});
 });
@@ -101,7 +103,7 @@ app.post("/articles/:id", (req, res) => {
 // Delete Comments from Article
 app.put("/articles/:id", (req, res) => {
 	console.log(req.body);
-	db.Article.update(
+	db.Article.updateOne(
 		{
 			_id: mongojs.ObjectId(req.params.id)
 		},
@@ -110,7 +112,7 @@ app.put("/articles/:id", (req, res) => {
 				comments: req.body.commentId
 			}
 		},
-		function(error, edited) {
+		(error, edited) => {
 			if (error) {
 				console.log(error);
 				res.send(error);
@@ -123,7 +125,7 @@ app.put("/articles/:id", (req, res) => {
 });
 
 // Index Page
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
 	db.Article.find({})
 		.limit(40)
 		.populate("comments")

@@ -1,5 +1,6 @@
 <div class="content">
 	
+	{{!-- Articles --}}
 	{{#each articles}}
 		<div>
 			<a href={{link}}>
@@ -13,21 +14,21 @@
 			<h6>{{summary}}</h6>
 
 			<button class="view-comments btn btn-warning" data-id={{_id}}>View Discussion</button>
-
-			<div class="comment-modal">
-
-				<form>
-					<input class="name-input-{{id}}" type="text" placeholder="Your Name">
-					<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
-					<button class="post-comment btn btn-dark" data-id={{_id}}>Post Comment</button>
-				</form>
-				
-				<div class="comment-modal-content">
-					
-				</div>
-			</div>
 		</div>
 		<br><br>
 	{{/each}}
+
+	{{!-- Comments Modal --}}
+	<div class="comment-modal">
+		<form>
+			<input class="name-input-{{id}}" type="text" placeholder="Your Name">
+			<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
+			<button class="post-comment btn btn-dark" data-id={{_id}}>Post Comment</button>
+		</form>
+		
+		<div class="comment-modal-content">
+			
+		</div>
+	</div>
 	
 </div>
