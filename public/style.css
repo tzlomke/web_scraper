@@ -1,4 +1,7 @@
 /* General CSS */
+html, body {
+	background-image: url("/images/paper_fibers.png");
+}
 
 /* Navbar */
 .navbar {
@@ -28,4 +31,18 @@
 .comment-modal-css {
 	height: 250px;
 	overflow: scroll;
+}
+
+.close-modal-button {
+	display: none;
+	float: right;
+}
+
+.comment-form {
+	margin-top: 2px;
+	display: none;
+}
+
+.post-comment {
+	float: right;
 }

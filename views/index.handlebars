@@ -44,10 +44,16 @@
 												<div class="comment-modal">
 													
 													<div class="close-modal">
-														<button class="view-comments btn btn-sm btn-warning" data-id={{_id}}>View Discussion</button>
-														<button class="close-modal-button btn btn-sm btn-danger">Collapse Discussion</button>
+														<div class="row">
+															<div class="col-6">
+																<button class="view-comments btn btn-sm btn-warning" data-id={{_id}}>Join Discussion</button>
+															</div>
+															<div class="col-6">
+																<button class="close-modal-button btn btn-sm btn-danger" id="close-modal-button-id-{{_id}}">Collapse Discussion</button>
+															</div>
+														</div>
 													</div>
-													<form>
+													<form class="comment-form" id="comment-form-id-{{_id}}">
 														<input class="name-input-{{id}}" type="text" placeholder="Your Name">
 														<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
 														<button class="post-comment btn btn-sm btn-dark" data-id={{_id}}>Post Comment</button>

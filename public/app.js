@@ -14,8 +14,13 @@ $(document).on("click", "#scrape", function(event) {
 $(document).on("click", ".view-comments", function(event) {
 	event.preventDefault();
 
+	
+	
+
 	const thisId = $(this).attr("data-id");
 	console.log(thisId);
+	$("#comment-form-id-" + thisId).css("display", "block");
+	$("#close-modal-button-id-" +thisId).css("display", "block");
 	$(".comment-modal-content-" + thisId).empty();
 
 	$.ajax({
@@ -24,11 +29,11 @@ $(document).on("click", ".view-comments", function(event) {
 		}).then(data => {
 			console.log(data)
 			for (let i = 0; i < data.comments.length; i++) {
-				$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name-index-" + [i] + "'>Name: </h6><p class='comment-date-index-" + [i] + "'></p><p class='comment-body-index-" + [i] + "'></p>");
+				$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name-index-" + [i] + "'></h6><p class='comment-date-index-" + [i] + "'></p><p class='comment-body-index-" + [i] + "'></p>");
 				$(".commenter-name-index-" + [i]).append(data.comments[i].name);
 				$(".comment-date-index-" + [i]).append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
 				$(".comment-body-index-" + [i]).append(data.comments[i].body);
-				$(".comment-modal-content-" + thisId).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-warning'>Delete Comment</button>");
+				$(".comment-modal-content-" + thisId).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-sm btn-warning'>Delete Comment</button>");
 			}
 		});
 
@@ -38,6 +43,8 @@ $(document).on("click", ".view-comments", function(event) {
 		event.preventDefault();
 
 		$(".comment-modal-content-" + thisId).empty();
+		$(".close-modal-button").css("display", "none");
+		$(".comment-form").css("display", "none");
 	});
 });
 
@@ -65,7 +72,7 @@ $(document).on("click", ".post-comment", function(event) {
 	}).then(data => {
 		console.log(data)
 		for (let i = 0; i < data.comments.length; i++) {
-			$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name-index-" + [i] + "'>Name: </h6><p class='comment-date-index-" + [i] + "'></p><p class='comment-body-index-" + [i] + "'></p>");
+			$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name-index-" + [i] + "'></h6><p class='comment-date-index-" + [i] + "'></p><p class='comment-body-index-" + [i] + "'></p>");
 			$(".commenter-name-index-" + [i]).append(data.comments[i].name);
 			$(".comment-date-index-" + [i]).append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
 			$(".comment-body-index-" + [i]).append(data.comments[i].body);
