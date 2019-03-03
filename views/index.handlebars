@@ -16,19 +16,24 @@
 			<button class="view-comments btn btn-warning" data-id={{_id}}>View Discussion</button>
 		</div>
 		<br><br>
-	{{/each}}
 
-	{{!-- Comments Modal --}}
-	<div class="comment-modal">
-		<form>
-			<input class="name-input-{{id}}" type="text" placeholder="Your Name">
-			<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
-			<button class="post-comment btn btn-dark" data-id={{_id}}>Post Comment</button>
-		</form>
-		
-		<div class="comment-modal-content">
-			
+		{{!-- Comments Modal --}}
+		<div class="modal-container" id="modal-container-{{_id}}">
+			<div class="comment-modal">
+				<div class="close-modal">
+					<button class="close-modal-button btn btn-danger">X</button>
+				</div>
+				<form>
+					<input class="name-input-{{id}}" type="text" placeholder="Your Name">
+					<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
+					<button class="post-comment btn btn-dark" data-id={{_id}}>Post Comment</button>
+				</form>
+				
+				<div class="comment-modal-content-{{id}}">
+					
+				</div>
+			</div>
 		</div>
-	</div>
+	{{/each}}
 	
 </div>

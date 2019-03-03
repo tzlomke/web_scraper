@@ -11,7 +11,7 @@ $(document).on("click", ".view-comments", function(event) {
 		}).then(data => {
 			console.log(data)
 			for (let i = 0; i < data.comments.length; i++) {
-				$(".comment-modal-content").append("<h6 class='commenter-name'>Name: </h6><p class='comment-date'></p><p class='comment-body'></p>");
+				$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name'>Name: </h6><p class='comment-date'></p><p class='comment-body'></p>");
 				$(".commenter-name").append(data.comments[i].name);
 				$(".comment-date").append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
 				$(".comment-body").append(data.comments[i].body);
@@ -19,7 +19,7 @@ $(document).on("click", ".view-comments", function(event) {
 			}
 		});
 
-	$(".comment-modal").css("display", "block");
+	$("#modal-container-" + thisId).css("display", "block");
 });
 
 // Post Comment

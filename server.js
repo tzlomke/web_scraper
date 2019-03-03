@@ -125,7 +125,7 @@ app.put("/articles/:id", (req, res) => {
 });
 
 // Index Page
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
 	db.Article.find({})
 		.limit(40)
 		.populate("comments")
