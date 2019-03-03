@@ -1,5 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
+const mongojs = require("mongojs");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 
@@ -95,6 +96,30 @@ app.post("/articles/:id", (req, res) => {
 		.catch(function(err) {
 			res.json(err)
 		});
+});
+
+// Delete Comments from Article
+app.put("/articles/:id", (req, res) => {
+	console.log(req.body);
+	db.Article.update(
+		{
+			_id: mongojs.ObjectId(req.params.id)
+		},
+		{
+			$pull: {
+				comments: req.body.commentId
+			}
+		},
+		function(error, edited) {
+			if (error) {
+				console.log(error);
+				res.send(error);
+			} else {
+				console.log(edited);
+				res.send(edited)
+			}
+		}
+	);
 });
 
 // Index Page

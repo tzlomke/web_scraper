@@ -11,10 +11,11 @@ $(document).on("click", ".view-comments", function(event) {
 		}).then(data => {
 			console.log(data)
 			for (let i = 0; i < data.comments.length; i++) {
+				$(".comment-modal-content").append("<h6 class='commenter-name'>Name: </h6><p class='comment-date'></p><p class='comment-body'></p>");
 				$(".commenter-name").append(data.comments[i].name);
 				$(".comment-date").append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
 				$(".comment-body").append(data.comments[i].body);
-				$(".comment-modal-content").append("<button data-id='" + data.comments[i]._id + "' class='delete-note'>Delete Note</button>");
+				$(".comment-modal-content").append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-note'>Delete Note</button>");
 			}
 		});
 
@@ -44,14 +45,18 @@ $(document).on("click", ".post-comment", function(event) {
 });
 
 // Delete Comment
-$(document).on("click", ".delete-comment", function(event) {
+$(document).on("click", ".delete-note", function(event) {
 	event.preventDefault();
 	const thisId = $(this).attr("data-id");
+	const commentId = $(this).attr("data-comment-id");
 
 	$.ajax({
-		method: "DELETE",
-		url: "/articles/" + thisId
+		method: "PUT",
+		url: "/articles/" + thisId,
+		data: {
+			commentId: commentId
+		}
 	}).then(
-
-	)
-})
+		window.location.href = "/"
+	);
+});
