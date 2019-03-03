@@ -38,8 +38,6 @@ app.get("/scrape", (req, res) => {
 	axios.get("https://www.nytimes.com/trending").then(response => {
 		const $ = cheerio.load(response.data);
 
-		
-		// <Insert Site-Specific Scraping Program Here>
 		$("article.css-16cbw64").each((i, element) => {
 			let result = {};
 
@@ -76,9 +74,11 @@ app.get("/scrape", (req, res) => {
 	});
 });
 
+// Routes
 // Get All Articles
 app.get("/articles/", (req, res) => {
 	db.Article.find({})
+		.populate("comments")
 		.then(dbArticle => res.json(dbArticle))
 		.catch(err => res.json(err));
 });
@@ -94,11 +94,22 @@ app.get("/articles/:id", (req, res) => {
 // Post Comments to Article
 app.post("/articles/:id", (req, res) => {
 	db.Comment.create(req.body)
-		.then(dbNote => {
+		.then(dbComment => {
 			return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comment: dbComment._id } }, { new: true });
 		})
 		.then(dbArticle => res.json(dbArticle))
 		.catcfh(err => res.json(err));
+});
+
+// Index Page
+app.get("/", function(req, res) {
+	db.Article.find({}).limit(10)
+		.populate("comments")
+		.then(dbArticle => {
+			let articles = dbArticle;
+			console.log(articles);
+			res.render("index", { articles: articles })
+		});
 });
 
 // Server Start

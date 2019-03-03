@@ -1,0 +1,17 @@
+<div>
+	
+	{{#each articles}}
+		<div>
+			<a href={{link}}>
+				<h2>{{title}}</h2>
+			</a>
+
+			<img src={{image}}>
+
+			<br>
+
+			<button class="viewComments" data-id={{_id}}>View Comments</button>
+		</div>
+	{{/each}}
+	
+</div>
