@@ -15,6 +15,10 @@ const PORT = process.env.PORT || 3000;
 // Initialize Express
 const app = express();
 
+// Custom CSS and JS Served to Handlebars
+var path = require("path");
+app.use(express.static(path.join(__dirname, "/public")));
+
 // Middleware
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
@@ -80,12 +84,13 @@ app.get("/articles/:id", (req, res) => {
 // Post Comments to Article
 app.post("/articles/:id", (req, res) => {
 	console.log(req.body);
+	
 	db.Comment.create(req.body)
 		.then(dbComment => {
 			return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comment: dbComment._id } }, { new: true });
 		})
 		.then(dbArticle => res.json(dbArticle))
-		.catcfh(err => res.json(err));
+		.catch(err => res.json(err));
 });
 
 // Index Page
