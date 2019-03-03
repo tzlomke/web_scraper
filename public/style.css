@@ -1,0 +1,31 @@
+/* General CSS */
+
+/* Navbar */
+.navbar {
+	background-image: url("https://wallpapercave.com/wp/wp3396925.jpg");
+	height: 80px;
+}
+
+#navbar-brand-css {
+	color: white
+}
+
+/* Content Section */
+.content-container {
+	margin-top: 10px;
+}
+
+/* Article Cards */
+.article-card {
+	height: 250px;
+}
+
+.article-image {
+	height: 150px;
+}
+
+/* Comment Section Content */
+.comment-modal-css {
+	height: 250px;
+	overflow: scroll;
+}

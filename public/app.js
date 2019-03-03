@@ -73,6 +73,12 @@ $(document).on("click", ".post-comment", function(event) {
 		}
 	}));
 
+	$(".close-modal-button").on("click", function(event) {
+		event.preventDefault();
+
+		$(".comment-modal-content-" + thisId).empty();
+	});
+
 	$(".name-input-" + thisId).val("");
 	$(".body-input-" + thisId).val("");
 });

@@ -127,7 +127,7 @@ app.put("/articles/:id", (req, res) => {
 // Index Page
 app.get("/", (req, res) => {
 	db.Article.find({})
-		.limit(40)
+		.limit(20)
 		.populate("comments")
 		.then(dbArticle => {
 			let articles = dbArticle;
