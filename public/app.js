@@ -1,6 +1,8 @@
 // View Comments
-$(document).on("click", ".view-comments", function() {
-	var thisId = $(this).attr("data-id");
+$(document).on("click", ".view-comments", function(event) {
+	event.preventDefault();
+
+	const thisId = $(this).attr("data-id");
 	console.log(thisId);
 
 	$.ajax({
@@ -8,19 +10,22 @@ $(document).on("click", ".view-comments", function() {
 			url: "/articles/" + thisId
 		}).then(data => {
 			console.log(data)
-			for (let i = 0; i < data.length; i++) {
-				$("#comments").append("<p><strong>" + data[i].name + "</strong></p>");
-				$("#comments").append("<p><em>" + moment(data[i].date).format("YYYY-MM-DD HH:mm:ss"));
-				$("#comments").append("<p>" + data[i].body + "</p>");
-				$("#comments").append("<button data-id='" + data._id + "' class='delete-note'>Delete Note</button>");
+			for (let i = 0; i < data.comments.length; i++) {
+				$(".commenter-name").append(data.comments[i].name);
+				$(".comment-date").append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
+				$(".comment-body").append(data.comments[i].body);
+				$(".comment-modal-content").append("<button data-id='" + data.comments[i]._id + "' class='delete-note'>Delete Note</button>");
 			}
-		})
+		});
+
+	$(".comment-modal").css("display", "block");
 });
 
 // Post Comment
-$(document).on("click", ".post-comment", function() {
+$(document).on("click", ".post-comment", function(event) {
 	event.preventDefault();
-	let thisId = $(this).attr("data-id");
+
+	const thisId = $(this).attr("data-id");
 	console.log(thisId);
 
 	$.ajax({
@@ -34,6 +39,19 @@ $(document).on("click", ".post-comment", function() {
 		console.log(data)
 	});
 
-	$(".title-input").val("");
+	$(".name-input").val("");
 	$(".body-input").val("");
+});
+
+// Delete Comment
+$(document).on("click", ".delete-comment", function(event) {
+	event.preventDefault();
+	const thisId = $(this).attr("data-id");
+
+	$.ajax({
+		method: "DELETE",
+		url: "/articles/" + thisId
+	}).then(
+
+	)
 })

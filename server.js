@@ -84,13 +84,17 @@ app.get("/articles/:id", (req, res) => {
 // Post Comments to Article
 app.post("/articles/:id", (req, res) => {
 	console.log(req.body);
-	
+
 	db.Comment.create(req.body)
-		.then(dbComment => {
-			return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comment: dbComment._id } }, { new: true });
+		.then(function(dbComment) {
+			return db.Article.findOneAndUpdate({}, { $push: { comments: dbComment._id } }, { new: true});
 		})
-		.then(dbArticle => res.json(dbArticle))
-		.catch(err => res.json(err));
+		.then(function(dbArticle) {
+			res.json(dbArticle);
+		})
+		.catch(function(err) {
+			res.json(err)
+		});
 });
 
 // Index Page
