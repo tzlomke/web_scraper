@@ -38,37 +38,45 @@ app.get("/scrape", (req, res) => {
 	axios.get("https://www.nytimes.com/trending").then(response => {
 		const $ = cheerio.load(response.data);
 
-		$("article.css-16cbw64").each((i, element) => {
-			let result = {};
 
-			let image = $(element).find("img.css-8atqhb").attr("src");
+		$("article.css-8atqhb").each((i, element) => {
+			let result = {}
+
 			let title = $(element).find("h2").text();
-			let link = $(element).find("a.css-1tr2g77").attr("href");
+			let link = $(element).find("a").attr("href");
+			let summary = $(element).find("p").text();
+		})
+		// $("article.css-16cbw64").each((i, element) => {
+		// 	let result = {};
+
+		// 	let image = $(element).find("img.css-8atqhb").attr("src");
+		// 	let title = $(element).find("h2").text();
+		// 	let link = $(element).find("a.css-1tr2g77").attr("href");
 			
-			result.image = image;
-			result.title = title;
-			result.link = link;
+		// 	result.image = image;
+		// 	result.title = title;
+		// 	result.link = link;
 
-			db.Article.create(result)
-				.then(dbArticle => console.log(dbArticle))
-				.catch(err => console.log(err));
-		});
+		// 	db.Article.create(result)
+		// 		.then(dbArticle => console.log(dbArticle))
+		// 		.catch(err => console.log(err));
+		// });
 
-		$("li.css-1iski2w").each((i, element) => {
-			let result = {};
+		// $("li.css-1iski2w").each((i, element) => {
+		// 	let result = {};
 
-			let image = $(element).find("img").attr("src");
-			let title = $(element).find("h1").text();
-			let link = $(element).children("a").attr("href");
+		// 	let image = $(element).find("img").attr("src");
+		// 	let title = $(element).find("h1").text();
+		// 	let link = $(element).children("a").attr("href");
 
-			result.image = image;
-			result.title = title;
-			result.link = link;
+		// 	result.image = image;
+		// 	result.title = title;
+		// 	result.link = link;
 
-			db.Article.create(result)
-				.then(dbArticle => console.log(dbArticle))
-				.catch(err => console.log(err));
-		});
+		// 	db.Article.create(result)
+		// 		.then(dbArticle => console.log(dbArticle))
+		// 		.catch(err => console.log(err));
+		// });
 
 		res.send("Scrape complete");
 	});

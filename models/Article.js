@@ -13,15 +13,17 @@ const ArticleSchema = new Schema({
 		required: true
 	},
 
-	image: {
+	summary: {
 		type: String,
-		required: true
+		required: false
 	},
 
-	note: {
-		type: Schema.Types.ObjectId,
-		ref: "Comment"
-	}
+	comment: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "Comment"
+		}
+	]
 });
 
 const Article = mongoose.model("Article", ArticleSchema);
