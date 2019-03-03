@@ -37,7 +37,7 @@ $(document).on("click", ".view-comments", function(event) {
 	$(".close-modal-button").on("click", function(event) {
 		event.preventDefault();
 
-		$("#modal-container-" + thisId).css("display", "none");
+		$(".comment-modal-content-" + thisId).empty();
 	});
 });
 

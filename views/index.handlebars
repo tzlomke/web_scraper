@@ -1,45 +1,71 @@
 {{!-- Navbar --}}
-<div class="navbar">
+<nav class="navbar navbar-light bg-light">
+	<span class="navbar-brand mb-0 h1">NYT Scraper</span>
 	<button class="btn btn-success" id="scrape">Scrape New York Times Articles</button>
-</div>
+</nav>
 
 {{!-- Content Section --}}
-<div class="content">
-	
-	{{!-- Articles --}}
-	{{#each articles}}
-		<div>
-			<a href={{link}}>
-				<h2>{{title}}</h2>
-			</a>
+<div class="container">
+	<div class="row">
+		<div class="column">
+			<div class="content">
 
-			{{#if image}}
-				<img src={{image}}>
-			{{/if}}
+				{{!-- Articles --}}
+				{{#each articles}}
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
 
-			<h6>{{summary}}</h6>
+									{{!-- Article Info --}}
+									<div class="col-6">
+										<div>
+											<a href={{link}}>
+												<h2>{{title}}</h2>
+											</a>
 
-			<button class="view-comments btn btn-warning" data-id={{_id}}>View Discussion</button>
-		</div>
-		<br><br>
+											<h6>{{summary}}</h6>
 
-		{{!-- Comments Modal --}}
-		<div class="modal-container" id="modal-container-{{_id}}">
-			<div class="comment-modal">
-				<div class="close-modal">
-					<button class="close-modal-button btn btn-danger">Collapse Discussion</button>
+											{{#if image}}
+											<img src={{image}}>
+											{{/if}}
+											<br>
+											
+										</div>
+										<br><br>
+									</div>
+
+									{{!-- Comments --}}
+									<div class="col-6">
+										<div class="modal-container" id="modal-container-{{_id}}">
+											<div class="comment-modal">
+												
+												<div class="close-modal">
+													<button class="view-comments btn btn-warning" data-id={{_id}}>View Discussion</button>
+													<button class="close-modal-button btn btn-danger">Collapse Discussion</button>
+												</div>
+												<form>
+													<input class="name-input-{{id}}" type="text" placeholder="Your Name">
+													<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
+													<button class="post-comment btn btn-dark" data-id={{_id}}>Post Comment</button>
+												</form>
+
+												<div class="comment-modal-content-{{id}}">
+
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<form>
-					<input class="name-input-{{id}}" type="text" placeholder="Your Name">
-					<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
-					<button class="post-comment btn btn-dark" data-id={{_id}}>Post Comment</button>
-				</form>
-				
-				<div class="comment-modal-content-{{id}}">
-					
-				</div>
+				{{/each}}
+
 			</div>
 		</div>
-	{{/each}}
-	
+	</div>
 </div>
