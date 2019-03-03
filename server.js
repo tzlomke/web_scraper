@@ -53,7 +53,7 @@ app.get("/scrape", (req, res) => {
 			result.image = image;
 
 			db.Article.create(result)
-				.then(dbArticle => console.log(dbArticle))
+				.then(dbArticle => console.log(dbArticle[0]))
 				.catch(err => console.log(err));
 		});
 
@@ -61,7 +61,6 @@ app.get("/scrape", (req, res) => {
 	});
 });
 
-// Routes
 // Get All Articles
 app.get("/articles/", (req, res) => {
 	db.Article.find({})
@@ -80,6 +79,7 @@ app.get("/articles/:id", (req, res) => {
 
 // Post Comments to Article
 app.post("/articles/:id", (req, res) => {
+	console.log(req.body);
 	db.Comment.create(req.body)
 		.then(dbComment => {
 			return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comment: dbComment._id } }, { new: true });
@@ -90,11 +90,11 @@ app.post("/articles/:id", (req, res) => {
 
 // Index Page
 app.get("/", function(req, res) {
-	db.Article.find({}).limit(15)
+	db.Article.find({})
+		.limit(40)
 		.populate("comments")
 		.then(dbArticle => {
 			let articles = dbArticle;
-			console.log(articles);
 			res.render("index", { articles: articles })
 		});
 });

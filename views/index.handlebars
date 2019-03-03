@@ -6,12 +6,21 @@
 				<h2>{{title}}</h2>
 			</a>
 
-			<h4>{{summary}}</h4>
+			{{#if image}}
+				<img src={{image}}>
+			{{/if}}
 
-			<br>
+			<h6>{{summary}}</h6>
 
 			<button class="viewComments btn btn-warning" data-id={{_id}}>View Comments</button>
+
+			<form>
+				<input class="name-input-{{id}}" type="text" placeholder="Your Name">
+				<input class="body-input-{{id}}" type="text" placeholder="Comment Here">
+				<button class="post-comment btn btn-dark" data-id={{_id}}>Post Comment</button>
+			</form>
 		</div>
+		<br><br>
 	{{/each}}
 	
 </div>
