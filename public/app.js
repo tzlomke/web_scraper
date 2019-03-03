@@ -48,6 +48,8 @@ $(document).on("click", ".post-comment", function(event) {
 	const thisId = $(this).attr("data-id");
 	console.log(thisId);
 
+	$(".comment-modal-content-" + thisId).empty();
+
 	$.ajax({
 		method: "POST",
 		url: "/articles/" + thisId,
@@ -57,7 +59,19 @@ $(document).on("click", ".post-comment", function(event) {
 		}
 	}).then(data => {
 		console.log(data)
-	});
+	}).then($.ajax({
+		method: "GET",
+		url: "/articles/" + thisId
+	}).then(data => {
+		console.log(data)
+		for (let i = 0; i < data.comments.length; i++) {
+			$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name-index-" + [i] + "'>Name: </h6><p class='comment-date-index-" + [i] + "'></p><p class='comment-body-index-" + [i] + "'></p>");
+			$(".commenter-name-index-" + [i]).append(data.comments[i].name);
+			$(".comment-date-index-" + [i]).append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
+			$(".comment-body-index-" + [i]).append(data.comments[i].body);
+			$(".comment-modal-content-" + thisId).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-warning'>Delete Comment</button>");
+		}
+	}));
 
 	$(".name-input-" + thisId).val("");
 	$(".body-input-" + thisId).val("");
