@@ -4,6 +4,7 @@ $(document).on("click", ".view-comments", function(event) {
 
 	const thisId = $(this).attr("data-id");
 	console.log(thisId);
+	$(".comment-modal-content-" + thisId).empty();
 
 	$.ajax({
 			method: "GET",
@@ -15,11 +16,17 @@ $(document).on("click", ".view-comments", function(event) {
 				$(".commenter-name").append(data.comments[i].name);
 				$(".comment-date").append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
 				$(".comment-body").append(data.comments[i].body);
-				$(".comment-modal-content").append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-note btn btn-warning'>Delete Comment</button>");
+				$(".comment-modal-content-" + thisId).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-note btn btn-warning'>Delete Comment</button>");
 			}
 		});
 
 	$("#modal-container-" + thisId).css("display", "block");
+
+	$(".close-modal-button").on("click", function(event) {
+		event.preventDefault();
+
+		$("#modal-container-" + thisId).css("display", "none");
+	});
 });
 
 // Post Comment
@@ -40,8 +47,8 @@ $(document).on("click", ".post-comment", function(event) {
 		console.log(data)
 	});
 
-	$(".name-input").val("");
-	$(".body-input").val("");
+	$(".name-input-" + thisId).val("");
+	$(".body-input-" + thisId).val("");
 });
 
 // Delete Comment
