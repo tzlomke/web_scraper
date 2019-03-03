@@ -39,12 +39,12 @@ $(document).on("click", ".view-comments", function(event) {
 
 	$("#modal-container-" + thisId).css("display", "block");
 
-	$(".close-modal-button").on("click", function(event) {
+	$("#close-modal-button-id-" + thisId).on("click", function(event) {
 		event.preventDefault();
 
 		$(".comment-modal-content-" + thisId).empty();
-		$(".close-modal-button").css("display", "none");
-		$(".comment-form").css("display", "none");
+		$("#close-modal-button-id-" + thisId).css("display", "none");
+		$("#comment-form-id-" + thisId).css("display", "none");
 	});
 });
 
@@ -80,7 +80,7 @@ $(document).on("click", ".post-comment", function(event) {
 		}
 	}));
 
-	$(".close-modal-button").on("click", function(event) {
+	$("#close-modal-button-id-" + thisId).on("click", function(event) {
 		event.preventDefault();
 
 		$(".comment-modal-content-" + thisId).empty();
