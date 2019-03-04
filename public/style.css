@@ -31,7 +31,8 @@ html, body {
 /* Comment Section Content */
 .comment-modal-css {
 	height: 150px;
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .close-modal-button {
