@@ -14,11 +14,7 @@ $(document).on("click", "#scrape", function(event) {
 $(document).on("click", ".view-comments", function(event) {
 	event.preventDefault();
 
-	
-	
-
 	const thisId = $(this).attr("data-id");
-	console.log(thisId);
 	$("#comment-form-id-" + thisId).css("display", "block");
 	$("#close-modal-button-id-" +thisId).css("display", "block");
 	$(".comment-modal-content-" + thisId).empty();
@@ -29,11 +25,19 @@ $(document).on("click", ".view-comments", function(event) {
 		}).then(data => {
 			console.log(data)
 			for (let i = 0; i < data.comments.length; i++) {
-				$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name-index-" + [i] + "'></h6><p class='comment-date-index-" + [i] + "'></p><p class='comment-body-index-" + [i] + "'></p>");
-				$(".commenter-name-index-" + [i]).append(data.comments[i].name);
-				$(".comment-date-index-" + [i]).append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
-				$(".comment-body-index-" + [i]).append(data.comments[i].body);
-				$(".comment-modal-content-" + thisId).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-sm btn-warning'>Delete Comment</button>");
+				$(".comment-modal-content-" + thisId).append(
+					"<div class='comment-container'>" +
+					"<div class='row'><div class='col-6 name-column-index-" + [i] + "'></div><div class='col-6 date-column-index-" + [i] + "'></div></div>" +
+					"<div class='row'><div class='col-9 comment-body-index-" + [i] + "'></div><div class='col-3 delete-comment-index-" + [i] + "'></div></div>" +
+					"</div>"
+				);
+				
+				$(".comment-container").css("border-bottom", "1px solid #DBDBDB");
+				$(".comment-container").css("padding", "2px");
+				$(".name-column-index-" + [i]).append("<h6 class='commenter-name-index-" + [i] + "'>" + data.comments[i].name + "</h6>");
+				$(".date-column-index-" + [i]).append("<p><em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em></p>");
+				$(".comment-body-index-" + [i]).append("<p>" + data.comments[i].body + "</p>")
+				$(".delete-comment-index-" + [i]).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-sm btn-danger'>Delete</button>");
 			}
 		});
 
@@ -53,8 +57,6 @@ $(document).on("click", ".post-comment", function(event) {
 	event.preventDefault();
 
 	const thisId = $(this).attr("data-id");
-	console.log(thisId);
-
 	$(".comment-modal-content-" + thisId).empty();
 
 	$.ajax({
@@ -72,11 +74,17 @@ $(document).on("click", ".post-comment", function(event) {
 	}).then(data => {
 		console.log(data)
 		for (let i = 0; i < data.comments.length; i++) {
-			$(".comment-modal-content-" + thisId).append("<h6 class='commenter-name-index-" + [i] + "'></h6><p class='comment-date-index-" + [i] + "'></p><p class='comment-body-index-" + [i] + "'></p>");
-			$(".commenter-name-index-" + [i]).append(data.comments[i].name);
-			$(".comment-date-index-" + [i]).append("<em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em>");
-			$(".comment-body-index-" + [i]).append(data.comments[i].body);
-			$(".comment-modal-content-" + thisId).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-warning'>Delete Comment</button>");
+			$(".comment-modal-content-" + thisId).append(
+				"<div class='comment-container'>" +
+				"<div class='row'><div class='col-6 name-column-index-" + [i] + "'></div><div class='col-6 date-column-index-" + [i] + "'></div></div>" +
+				"<div class='row'><div class='col-8 comment-body-index-" + [i] + "'></div><div class='col-3 delete-comment-index-" + [i] + "'></div></div>" +
+				"</div>"
+			);
+
+			$(".name-column-index-" + [i]).append("<h6 class='commenter-name-index-" + [i] + "'>" + data.comments[i].name + "</h6>");
+			$(".date-column-index-" + [i]).append("<p><em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em></p>");
+			$(".comment-body-index-" + [i]).append("<p>" + data.comments[i].body + "</p>")
+			$(".delete-comment-index-" + [i]).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-sm btn-warning'>Delete Comment</button>");
 		}
 	}));
 

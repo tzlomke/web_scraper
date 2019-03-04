@@ -29,7 +29,7 @@ html, body {
 
 /* Comment Section Content */
 .comment-modal-css {
-	height: 250px;
+	height: 150px;
 	overflow: scroll;
 }
 
@@ -45,4 +45,8 @@ html, body {
 
 .post-comment {
 	float: right;
+}
+
+.comment-container {
+	border-bottom: 1px;
 }
