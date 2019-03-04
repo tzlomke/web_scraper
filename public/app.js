@@ -86,7 +86,7 @@ $(document).on("click", ".post-comment", function(event) {
 			$(".name-column-index-" + [i]).append("<h6 class='commenter-name-index-" + [i] + "'>" + data.comments[i].name + "</h6>");
 			$(".date-column-index-" + [i]).append("<p><em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em></p>");
 			$(".comment-body-index-" + [i]).append("<p>" + data.comments[i].body + "</p>")
-			$(".delete-comment-index-" + [i]).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-sm btn-warning'>Delete Comment</button>");
+			$(".delete-comment-index-" + [i]).append("<button data-id='" + thisId + "' data-comment-id='" + data.comments[i]._id + "' class='delete-comment btn btn-sm btn-danger'>Delete</button>");
 		}
 	}));
 
