@@ -76,7 +76,7 @@ $(document).on("click", ".post-comment", function(event) {
 		for (let i = 0; i < data.comments.length; i++) {
 			$(".comment-modal-content-" + thisId).append(
 				"<div class='comment-container'>" +
-				"<div class='row'><div class='col-6 name-column-index-" + [i] + "'></div><div class='col-6 date-column-index-" + [i] + "'></div></div>" +
+				"<div class='row'><div class='col-9 name-column-index-" + [i] + "'></div><div class='col-3 date-column-index-" + [i] + "'></div></div>" +
 				"<div class='row'><div class='col-8 comment-body-index-" + [i] + "'></div><div class='col-3 delete-comment-index-" + [i] + "'></div></div>" +
 				"</div>"
 			);

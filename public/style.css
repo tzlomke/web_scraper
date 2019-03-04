@@ -16,6 +16,7 @@ html, body {
 /* Content Section */
 .content-container {
 	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 /* Article Cards */
@@ -40,6 +41,7 @@ html, body {
 
 .comment-form {
 	margin-top: 2px;
+	margin-bottom: 2px;
 	display: none;
 }
 
@@ -47,6 +49,10 @@ html, body {
 	float: right;
 }
 
-.comment-container {
-	border-bottom: 1px;
+.comment-date {
+	float: right;
+}
+
+.delete-comment {
+	float: right;
 }
