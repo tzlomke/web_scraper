@@ -80,7 +80,9 @@ $(document).on("click", ".post-comment", function(event) {
 				"<div class='row'><div class='col-8 comment-body-index-" + [i] + "'></div><div class='col-3 delete-comment-index-" + [i] + "'></div></div>" +
 				"</div>"
 			);
-
+			
+			$(".comment-container").css("border-bottom", "1px solid #DBDBDB");
+			$(".comment-container").css("padding", "2px");
 			$(".name-column-index-" + [i]).append("<h6 class='commenter-name-index-" + [i] + "'>" + data.comments[i].name + "</h6>");
 			$(".date-column-index-" + [i]).append("<p><em>" + moment(data.comments[i].date).format("MMMM Do YYYY LT") + "</em></p>");
 			$(".comment-body-index-" + [i]).append("<p>" + data.comments[i].body + "</p>")
