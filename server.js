@@ -36,7 +36,8 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Database Connection
-mongoose.connect("mongodb://localhost/web_scraper", { useNewUrlParser: true});
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/web_scraper";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true}).catch(err => {console.log(err)});
 
 // Routes
 
