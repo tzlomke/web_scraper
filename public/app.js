@@ -18,6 +18,7 @@ $(document).on("click", ".view-comments", function(event) {
 	$("#comment-form-id-" + thisId).css("display", "block");
 	$("#close-modal-button-id-" +thisId).css("display", "block");
 	$(".comment-modal-content-" + thisId).empty();
+	$(".comment-modals").empty();
 
 	$.ajax({
 			method: "GET",
@@ -58,6 +59,7 @@ $(document).on("click", ".post-comment", function(event) {
 
 	const thisId = $(this).attr("data-id");
 	$(".comment-modal-content-" + thisId).empty();
+	$(".comment-modals").empty();
 
 	$.ajax({
 		method: "POST",
