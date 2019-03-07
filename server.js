@@ -61,7 +61,7 @@ app.get("/scrape", (req, res) => {
 			result.image = image;
 
 			db.Article.create(result)
-				.then(dbArticle => console.log(dbArticle[0]))
+				.then(dbArticle => console.log(dbArticle))
 				.catch(err => console.log(err));
 		});
 
@@ -129,6 +129,7 @@ app.put("/articles/:id", (req, res) => {
 app.get("/", (req, res) => {
 	db.Article.find({})
 		.limit(20)
+		.sort({ _id: -1 })
 		.populate("comments")
 		.then(dbArticle => {
 			let articles = dbArticle;
