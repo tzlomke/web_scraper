@@ -56,7 +56,7 @@ app.get("/scrape", (req, res) => {
 			let image = $(element).find("img").attr("src");
 
 			result.title = title;
-			result.link = link;
+			result.link = "https://www.nytimes.com/" + link;
 			result.summary = summary;
 			result.image = image;
 
